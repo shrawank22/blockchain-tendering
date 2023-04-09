@@ -1,0 +1,21 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "compile": "solc --abi --include-path node_modules/ --base-path . web3/contracts/main.sol --output-dir web3/build"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.8.2",
+    "bulma": "^0.9.4",
+    "eslint": "8.38.0",
+    "eslint-config-next": "13.3.0",
+    "next": "13.3.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  }
+}
