@@ -57,9 +57,9 @@ contract ContractingPlatform is ERC20 ("ASKS Token", "ASKS" ) {
 
     // Function for creating party
     function createParty(string memory _name, address _partyAddress) public payable {
-        // require(_partyAddress != admin, "Admin can't be a party");
+        require(_partyAddress != admin, "Admin can't be a party");
         // require(msg.sender == admin, "Only admin can create a party");
-        // require(msg.sender == _partyAddress, "A party with some different address can't be created with your address");
+        require(msg.sender == _partyAddress, "A party with some different address can't be created with your address");
         require(parties[_partyAddress].partyAddress == address(0), "Party already exists");
 
         Party storage newParty = parties[_partyAddress];
@@ -155,7 +155,7 @@ contract ContractingPlatform is ERC20 ("ASKS Token", "ASKS" ) {
         require(parties[msg.sender].partyAddress != address(0), "Party does not exist");
         require(project.budget > 0, "Project does not exist");
         require(project.isOpen, "Project is not open for bids");
-        // require(block.timestamp < project.deadline, "Bidding has ended");
+       	require(block.timestamp < project.deadline, "Bidding has ended");
         require(msg.sender != project.creator, "Owner cannot bid on their own project");
 
         Bid memory newBid = Bid({
