@@ -121,17 +121,6 @@ contract ContractingPlatform is ERC20 ("ASKS Token", "ASKS" ) {
         newProject.lowestBidder = payable(address(0));
         newProject.lowestBid = 0;
 
-        address[] memory sortedlist = sortByTrustScore();
-        uint len = sortedlist.length;
-	    uint mnm = len > 10 ? 10 : len;
-        for(uint i = 0; i < mnm; i++) {
-            // uint index = random() % partyAddresses.length;
-            if(sortedlist[len - i - 1] != parties[msg.sender].partyAddress) {
-                newProject.selectedValidators.push(sortedlist[len - i - 1]);
-                parties[msg.sender].isValidator = true;
-            }
-        }
-
         parties[msg.sender].projectIds.push(projectId);
         projectCount++;
         return projectId;
@@ -250,21 +239,6 @@ contract ContractingPlatform is ERC20 ("ASKS Token", "ASKS" ) {
     // Function for getting the address of a particular party.
     function getPartyAddress(uint256 index) public view returns (address) {
         return partyAddresses[index];
-    }
-
-    // Driving function for sorting parties based on reputations
-    function sortByTrustScore() private view returns(address[] memory) {
-        address[] memory party = partyAddresses;
-        for (uint i = 1; i < partyAddresses.length; i++) {
-            for (uint j = 0; j < i; j++) {
-                if (parties[party[i]].trust_score < parties[party[j]].trust_score) {
-                    address x = party[i];
-                    party[i] = party[j];
-                    party[j] = x;
-                }
-            }
-        }
-        return party;
     }
 
     // Function random
